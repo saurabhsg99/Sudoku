@@ -35,10 +35,18 @@ void board(vector<vector<int>> &mat)
                 continue;
             }
             if (mat[i - 1][j - 1])
-                printf("\x1b[33m"
-                       "%d "
-                       "\x1b[34m",
-                       mat[i - 1][j - 1]);
+            {
+                if (mat[i - 1][j - 1] < 0)
+                    printf("\x1b[0m"
+                           "%d "
+                           "\x1b[34m",
+                           -mat[i - 1][j - 1]);
+                else
+                    printf("\x1b[33m"
+                           "%d "
+                           "\x1b[34m",
+                           mat[i - 1][j - 1]);
+            }
             else
                 cout << mat[i - 1][j - 1] << " ";
             if (j == 3 || j == 6)
@@ -109,55 +117,58 @@ bool Isvalid(vector<vector<int>> &mat)
     }
     return true;
 }
+
 int main()
 {
-    vector<vector<int>> mat1 = {{5, 3, 0, 0, 7, 0, 0, 0, 0},
-                                {6, 0, 0, 1, 9, 5, 0, 0, 0},
-                                {0, 9, 8, 0, 0, 0, 0, 6, 0},
+    vector<vector<int>> mat = {
+        {-5, -3, 0, 0, -7, 0, 0, 0, 0},
+        {-6, 0, 0, -1, -9, -5, 0, 0, 0},
+        {0, -9, -8, 0, 0, 0, 0, -6, 0},
 
-                                {8, 0, 0, 0, 6, 0, 0, 0, 3},
-                                {4, 0, 0, 8, 0, 3, 0, 0, 1},
-                                {7, 0, 0, 0, 2, 0, 0, 0, 6},
+        {-8, 0, 0, 0, -6, 0, 0, 0, -3},
+        {-4, 0, 0, -8, 0, -3, 0, 0, -1},
+        {-7, 0, 0, 0, -2, 0, 0, 0, -6},
 
-                                {0, 6, 0, 0, 0, 0, 2, 8, 0},
-                                {0, 0, 0, 4, 1, 9, 0, 0, 5},
-                                {0, 0, 0, 0, 8, 0, 0, 7, 9}};
-    vector<vector<int>> mat2 = {{3, 1, 6, 5, 7, 8, 4, 9, 2},
-                                {5, 2, 9, 1, 3, 4, 7, 6, 8},
-                                {4, 8, 7, 6, 2, 9, 5, 3, 1},
-                                {2, 6, 3, 4, 1, 5, 9, 8, 7},
-                                {9, 7, 4, 8, 6, 3, 1, 2, 5},
-                                {8, 5, 1, 7, 9, 2, 6, 4, 3},
-                                {1, 3, 8, 9, 4, 7, 2, 5, 6},
-                                {6, 9, 2, 3, 5, 1, 8, 7, 4},
-                                {7, 4, 5, 2, 8, 6, 3, 1, 9}};
-    vector<vector<int>> mat = {{5, 3, 4, 6, 7, 8, 9, 1, 2},
-                               {6, 7, 2, 1, 9, 5, 3, 4, 8},
-                               {1, 9, 8, 3, 4, 2, 5, 6, 7},
-                               {8, 5, 9, 7, 6, 1, 4, 2, 3},
-                               {4, 2, 6, 8, 5, 3, 7, 9, 1},
-                               {7, 1, 3, 9, 2, 4, 8, 5, 6},
-                               {9, 6, 1, 5, 3, 7, 2, 8, 4},
-                               {2, 8, 7, 4, 1, 9, 6, 3, 5},
-                               {3, 4, 5, 2, 8, 6, 1, 7, 9}};
-    // board(mat);
-    //  int r=-1, c, value;
-    //  while (!Iscompleted(mat))
-    //  {
-    //      board(mat);
-    //      cout << "\nEnter the position (r,c) : ";
-    //      cin >> r >> c;
-    //      // if(r<1 || r>9)
-    //      // //reenter
+        {0, -6, 0, 0, 0, 0, -2, -8, 0},
+        {0, 0, 0, -4, -1, -9, 0, 0, -5},
+        {0, 0, 0, 0, -8, 0, 0, -7, -9}};
 
-    //     cout << "Enter the value : ";
-    //     cin >> value;
-    //     mat[r][c] = value;
-    // }
+    int r = -1, c, value;
+    while (!Iscompleted(mat))
+    {
+
+        system("cls");
+        board(mat);
+        bool flag;
+        do
+        {
+            flag = false;
+            cout << "\nEnter the position (r,c) : ";
+            cin >> r >> c;
+            if (r > 9 || c > 9 || mat[r - 1][c - 1] != 0)
+            {
+                flag = true;
+                cout << "\n\t Invalid Position \n";
+            }
+        } while (flag);
+
+        do
+        {
+            flag = false;
+            cout << "Enter the value : ";
+            cin >> value;
+            if (value > 9 || value < 1)
+            {
+                flag = true;
+                cout << "\n\t Invalid Value \n";
+            }
+        } while (flag);
+        mat[r - 1][c - 1] = value;
+    }
     if (Isvalid(mat))
-        cout << "you have done it ";
+        cout << "You have done it ";
     else
-        cout << "gadhe ho ";
+        cout << "You lost ";
 
     return 0;
 }
