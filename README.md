@@ -9,7 +9,7 @@ Here, I have developed this game using the C language.
 
 ## Demo
 
-[https://replit.com/@saurabhsg99/Tictaktoe?v=1](https://replit.com/@saurabhsg99/Sudoku?v=1)
+[https://replit.com/@saurabhsg99/Sudoku?v=1](https://replit.com/@saurabhsg99/Sudoku?v=1)
 
 
 ## Screenshots
